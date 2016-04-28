@@ -16,7 +16,7 @@ export class Counter extends React.Component {
         <h1 className="counter__title">{ this.props.counter }</h1>
         <hr/>
         <button onClick={ () => this.props.increment(1) } className="counter__button counter__button--i1">+</button>
-        <button onClick={ () => this.props.increment(10) }  className="counter__button counter__button--i10">+10</button>
+        <button onClick={ () => this.props.increment(10) } className="counter__button counter__button--i10">+10</button>
         <button onClick={ () => this.props.decrement(1) } className="counter__button counter__button--d1">-</button>
         <button onClick={ () => this.props.decrement(10) } className="counter__button counter__button--d10">-10</button>
       </div>
