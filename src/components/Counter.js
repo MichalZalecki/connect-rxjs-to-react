@@ -1,7 +1,7 @@
 import React from "react";
 import state$ from "app/state";
-import connect from "app/rx-state/connect";
-import bindAction from "app/rx-state/bindAction";
+import connect from "app/xstream-state/connect";
+import bindAction from "app/xstream-state/bindAction";
 import CounterActions from "app/actions/CounterActions";
 
 export class Counter extends React.Component {
@@ -27,8 +27,6 @@ export class Counter extends React.Component {
 
 export default connect(state$, state => ({
   counter: state.counter,
-  // increment(n) { CounterActions.increment$.next(n) },
-  // decrement(n) { CounterActions.decrement$.next(n) }
   increment: bindAction(CounterActions.increment$),
   decrement: bindAction(CounterActions.decrement$),
 }))(Counter);

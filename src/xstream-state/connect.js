@@ -5,15 +5,22 @@ function connect(state$, selector = (state) => state) {
     return class Connect extends React.Component {
       constructor(props) {
         super(props);
-        state$.take(1).map(selector).subscribe(state => this.state = state);
+
+        this.listener = {
+          next: ::this.setState,
+          error: err => { throw err; },
+          complete: () => {},
+        };
+
+        this.stateStream = state$.map(selector);
       }
 
-      componentDidMount() {
-        this.subscription = state$.map(selector).subscribe(::this.setState);
+      componentWillMount() {
+        this.stateStream.addListener(this.listener);
       }
 
       componentWillUnmount() {
-        this.subscription.unsubscribe();
+        this.stateStream.removeListener(this.listener);
       }
 
       render() {

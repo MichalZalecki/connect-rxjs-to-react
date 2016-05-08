@@ -1,8 +1,8 @@
-import Rx from "rxjs";
+import xs from "xstream";
 
 const CounterActions = {
-  increment$: new Rx.Subject,
-  decrement$: new Rx.Subject,
+  increment$: xs.never(),
+  decrement$: xs.never(),
 };
 
 export default CounterActions;

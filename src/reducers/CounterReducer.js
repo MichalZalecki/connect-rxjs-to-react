@@ -1,7 +1,7 @@
-import Rx from "rxjs";
+import xs from "xstream";
 import CounterActions from "app/actions/CounterActions";
 
-const CounterReducer$ = Rx.Observable.merge(
+const CounterReducer$ = xs.merge(
   CounterActions.increment$.map((n = 1) =>
     state => ({ ...state, counter: state.counter+n })),
 
