@@ -27,7 +27,6 @@ export class Counter extends React.Component {
 }
 
 let cnt = 1
-
 export default connect(state$, state => (console.log(`observerNext: ${cnt++} `, state, ), {
   counter: state.counter && state.counter.counter,
   // increment(n) { CounterActions.increment$.next(n) },
