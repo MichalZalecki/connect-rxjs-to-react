@@ -12,6 +12,7 @@ export class Counter extends React.Component {
   };
 
   render() {
+    console.log('render');
     return (
       <div className="counter">
         <h1 className="counter__title">{ this.props.counter }</h1>
@@ -25,8 +26,9 @@ export class Counter extends React.Component {
   }
 }
 
-export default connect(state$, state => ({
-  counter: state.counter,
+let cnt = 1
+export default connect(state$, state => (console.log(`observerNext: ${cnt++} `, state, ), {
+  counter: state.counter && state.counter.counter,
   // increment(n) { CounterActions.increment$.next(n) },
   // decrement(n) { CounterActions.decrement$.next(n) }
   increment: bindAction(CounterActions.increment$),
