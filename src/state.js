@@ -3,9 +3,7 @@ import createState from "app/rx-state/createState";
 import CounterReducer$ from "app/reducers/CounterReducer";
 
 const reducer$ = Rx.Observable.merge(
-  CounterReducer$
+  CounterReducer$.map(reducer => ["counter", reducer]),
 );
 
-const initialState$ = Rx.Observable.of({ counter: 0 });
-
-export default createState(reducer$, initialState$);
+export default createState(reducer$);

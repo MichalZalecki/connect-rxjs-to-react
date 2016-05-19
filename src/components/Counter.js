@@ -12,6 +12,7 @@ export class Counter extends React.Component {
   };
 
   render() {
+    console.count("render");
     return (
       <div className="counter">
         <h1 className="counter__title">{ this.props.counter }</h1>
