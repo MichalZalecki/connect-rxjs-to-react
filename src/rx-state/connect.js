@@ -12,6 +12,7 @@ function connect(state$, selector = (state) => state) {
       }
 
       render() {
+        console.log('renderConnect');
         return (
           <WrappedComponent {...this.state} {...this.props} />
         );
