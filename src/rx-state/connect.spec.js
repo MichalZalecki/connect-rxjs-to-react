@@ -25,7 +25,7 @@ describe("connect", () => {
   });
 
   it("creates connected component with selector", () => {
-    const selector = state => ({ counter: state.counter*2 });
+    const selector = state => ({ counter: state.counter * 2 });
     const WrappedComponent = connect(state$, selector)(Component);
     const tree = TestUtils.renderIntoDocument(<WrappedComponent />);
     const heading = TestUtils.findRenderedDOMComponentWithClass(tree, "heading");
