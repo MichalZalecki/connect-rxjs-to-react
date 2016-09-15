@@ -1,5 +1,5 @@
 import Rx from "rxjs";
-import createState from "app/rx-state/createState";
+import { createState } from "./rx-state/RxState";
 import CounterReducer$ from "app/reducers/CounterReducer";
 
 const reducer$ = Rx.Observable.merge(

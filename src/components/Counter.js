@@ -1,35 +1,32 @@
-import React from "react";
-import state$ from "app/state";
-import connect from "app/rx-state/connect";
-import bindAction from "app/rx-state/bindAction";
-import CounterActions from "app/actions/CounterActions";
+import React, { PropTypes, Component } from "react";
+import { connect } from "../rx-state/RxState";
+import counterActions from "app/actions/counterActions";
 
-export class Counter extends React.Component {
+export class Counter extends Component {
   static propTypes = {
-    counter: React.PropTypes.number.isRequired,
-    increment: React.PropTypes.func.isRequired,
-    decrement: React.PropTypes.func.isRequired,
+    counter: PropTypes.number.isRequired,
+    increment: PropTypes.func.isRequired,
+    decrement: PropTypes.func.isRequired,
   };
 
   render() {
-    console.count("render");
     return (
-      <div className="counter">
-        <h1 className="counter__title">{ this.props.counter }</h1>
+      <div>
+        <h1>{this.props.counter}</h1>
         <hr/>
-        <button onClick={ () => this.props.increment(1) } className="counter__button counter__button--i1">+</button>
-        <button onClick={ () => this.props.increment(10) } className="counter__button counter__button--i10">+10</button>
-        <button onClick={ () => this.props.decrement(1) } className="counter__button counter__button--d1">-</button>
-        <button onClick={ () => this.props.decrement(10) } className="counter__button counter__button--d10">-10</button>
+        <button onClick={() => this.props.increment(1)}>+</button>
+        <button onClick={() => this.props.increment(10)}>+10</button>
+        <button onClick={this.props.reset}>Reset</button>
+        <button onClick={() => this.props.decrement(1)}>-</button>
+        <button onClick={() => this.props.decrement(10)}>-10</button>
       </div>
     );
   }
 }
 
-export default connect(state$, state => ({
+export default connect(state => ({
   counter: state.counter,
-  // increment(n) { CounterActions.increment$.next(n) },
-  // decrement(n) { CounterActions.decrement$.next(n) }
-  increment: bindAction(CounterActions.increment$),
-  decrement: bindAction(CounterActions.decrement$),
+  reset() { counterActions.reset$.next() },
+  increment(n) { counterActions.increment$.next(n) },
+  decrement(n) { counterActions.decrement$.next(n) },
 }))(Counter);

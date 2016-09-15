@@ -1,13 +1,13 @@
 import Rx from "rxjs";
-import CounterActions from "app/actions/CounterActions";
+import counterActions from "app/actions/counterActions";
 
-const CounterReducer$ = Rx.Observable.merge(
-  CounterActions.increment$.map((n = 1) =>
-    counterState => counterState + n),
+const initialState = 0;
 
-  CounterActions.decrement$.map((n = 1) =>
-    counterState => counterState - n),
-)
-.startWith(() => 0) // function which returns initial state (optional)
+const CounterReducer$ = Rx.Observable.of(() => initialState)
+  .merge(
+    counterActions.increment$.map(payload => state => state + payload),
+    counterActions.decrement$.map(payload => state => state - payload),
+    counterActions.reset$.map(payload => state => initialState),
+  );
 
 export default CounterReducer$;

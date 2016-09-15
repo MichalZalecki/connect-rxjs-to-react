@@ -3,10 +3,10 @@
 Simple way to connect [rxjs](https://www.npmjs.com/package/rxjs) to React component in Redux style... but without dispatch and constants.
 
 ```js
-export default connect(state$, state => ({
+export default connect(state => ({
   counter: state.counter,
-  increment: CounterActions.increment$.next,
-  decrement: CounterActions.decrement$.next,
+  increment(n) { counterActions.increment$.next(n) },
+  decrement(n) { counterActions.decrement$.next(n) }
 }))(Counter);
 ```
 
