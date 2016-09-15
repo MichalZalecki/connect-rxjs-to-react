@@ -1,16 +1,14 @@
-var webpack = require("webpack");
-var config  = require("./webpack.config.js");
-var extend  = require("extend");
+const webpack = require("webpack");
+const config = require("./webpack.config");
 
-devConfig = {
-  devtool: "inline-source-map",
+const devConfig = {
+  devtool: "eval",
 
   entry: [
-    "webpack-dev-server/client?http://localhost:8080",
-    "webpack/hot/only-dev-server"
+    "webpack-hot-middleware/client?reload=true",
   ].concat(config.entry),
 
-  output: extend(config.output, { publicPath: "http://localhost:8080/" }),
+  output: config.output,
 
   resolve: config.resolve,
 
@@ -22,7 +20,7 @@ devConfig = {
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loader: "react-hot" },
-      { test: /\.css$/, loader: "style!css?module&sourceMap!postcss" },
+      { test: /\.css$/, loader: "style!css?sourceMap&localIdentName=[local]_[hash:base64:4]!postcss" },
     ].concat(config.module.loaders),
   },
 

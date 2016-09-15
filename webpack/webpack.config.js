@@ -1,25 +1,31 @@
-var webpack           = require("webpack");
-var path              = require("path");
-var HTMLWebpackPlugin = require("html-webpack-plugin");
+/* eslint global-require: 0 */
 
-var config = {
+require("dotenv").config({ silent: true });
+
+const webpack = require("webpack");
+const path = require("path");
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+
+const config = {
   entry: [
-    path.resolve("src/main.js"),
+    path.resolve("src/main.jsx"),
   ],
 
   output: {
     path: path.resolve("build"),
-    filename: "app.js",
+    filename: "app.[hash].js",
+    publicPath: "/",
   },
 
   resolve: {
     extensions: ["", ".js", ".jsx"],
     alias: {
-      "app": path.resolve("src"),
-    }
+      src: path.resolve(__dirname, "../src"),
+    },
   },
 
   plugins: [
+    new webpack.EnvironmentPlugin(["NODE_ENV"]),
     new HTMLWebpackPlugin({
       template: path.resolve("src/index.html"),
       minify: { collapseWhitespace: true },
@@ -32,7 +38,7 @@ var config = {
     ],
   },
 
-  postcss: function () {
+  postcss() {
     return [
       require("postcss-import")({ addDependencyTo: webpack }),
       require("postcss-url")(),
@@ -42,7 +48,7 @@ var config = {
       require("postcss-browser-reporter")(),
       require("postcss-reporter")(),
     ];
-  }
+  },
 };
 
 module.exports = config;

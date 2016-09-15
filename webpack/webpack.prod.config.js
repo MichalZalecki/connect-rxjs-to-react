@@ -1,7 +1,7 @@
-var config            = require("./webpack.config.js");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const config = require("./webpack.config");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var prodConfig = {
+const prodConfig = {
   devtool: "source-map",
 
   entry: config.entry,

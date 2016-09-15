@@ -6,8 +6,8 @@ style... but without dispatch and constants.
 ```js
 export default connect(state => ({
   counter: state.counter,
-  increment(n) { counterActions.increment$.next(n) },
-  decrement(n) { counterActions.decrement$.next(n) }
+  increment(n) { counterActions.increment$.next(n); },
+  decrement(n) { counterActions.decrement$.next(n); },
 }))(Counter);
 ```
 

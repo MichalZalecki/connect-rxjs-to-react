@@ -1,14 +1,20 @@
-var express = require("express");
-var path    = require("path");
+const express = require("express");
+const compression = require("compression");
+const path = require("path");
 
-var server = express();
+const app = express();
 
-server.use(express.static('build'));
+app.set("x-powered-by", false);
 
-server.get('*', function (req, res) {
+app.use(compression());
+app.use(express.static("build", {
+  // etag: false
+}));
+
+app.get("*", (req, res) => {
   res.sendFile(path.resolve("build/index.html"));
 });
 
-var listener = server.listen(process.env.PORT || 8080, function () {
-  console.log("Express server listening on port %d", listener.address().port)
+const listener = app.listen(process.env.PORT || 8080, () => {
+  console.log("express started at port %d", listener.address().port);
 });
