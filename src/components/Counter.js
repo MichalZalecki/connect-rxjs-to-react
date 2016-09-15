@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from "react";
-import { connect } from "../rx-state/RxState";
+import { connect } from "../state/RxState";
 import counterActions from "app/actions/counterActions";
 
 export class Counter extends Component {

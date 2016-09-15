@@ -4,7 +4,7 @@ var HTMLWebpackPlugin = require("html-webpack-plugin");
 
 var config = {
   entry: [
-    path.resolve("src/index.js"),
+    path.resolve("src/main.js"),
   ],
 
   output: {

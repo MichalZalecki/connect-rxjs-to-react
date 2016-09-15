@@ -20,7 +20,12 @@ class App extends React.Component {
     return (
       <div>
         <Counter />
-        {this.state.showSecondCounter ? <Counter /> : null}
+        {this.state.showSecondCounter ? (
+          <div>
+            <p>That one is connected as well and recived current state in props</p>
+            <Counter />
+          </div>
+        ) : null}
       </div>
     );
   }
