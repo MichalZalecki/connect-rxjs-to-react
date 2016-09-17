@@ -1,8 +1,8 @@
 import React from "react";
 import test from "ava";
+import sinon from "sinon";
 import { shallow } from "enzyme";
 import { Counter } from "./Counter";
-import sinon from "sinon";
 
 test("displays counter", (t) => {
   const increment = sinon.spy();
