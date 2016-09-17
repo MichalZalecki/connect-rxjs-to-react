@@ -11,7 +11,7 @@ import {
   connect,
 } from "./RxState";
 
-test("createAction creates new Subject instance", t => {
+test("createAction creates new Subject instance", (t) => {
   const action$ = createAction();
   const anotherAction$ = createAction();
 
@@ -19,16 +19,16 @@ test("createAction creates new Subject instance", t => {
   t.not(action$, anotherAction$);
 });
 
-test("createActions creates new dict with actions", t => {
+test("createActions creates new dict with actions", (t) => {
   const actions = createActions(["add$", "decrement$"]);
-    
-  t.deepEqual(actions.add$, new Rx.Subject);
-  t.deepEqual(actions.decrement$, new Rx.Subject);
+
+  t.deepEqual(actions.add$, new Rx.Subject());
+  t.deepEqual(actions.decrement$, new Rx.Subject());
   t.is(actions.count$, undefined);
 });
 
-test("createState creates reactive state using scoped reducers", t => {
-  const add$ = new Rx.Subject;
+test("createState creates reactive state using scoped reducers", (t) => {
+  const add$ = new Rx.Subject();
   const counterReducer$ = add$.map(payload => state => state + payload);
   const rootReducer$ = counterReducer$.map(counter => ["counter", counter]);
   const state$ = createState(rootReducer$, Rx.Observable.of({ counter: 10 }));
@@ -37,7 +37,7 @@ test("createState creates reactive state using scoped reducers", t => {
 
   add$.next(1); // No subscribers yet
 
-  state$.toArray().subscribe(results => {
+  state$.toArray().subscribe((results) => {
     t.deepEqual(results, [{ counter: 10 }, { counter: 12 }]);
   });
 
@@ -45,8 +45,8 @@ test("createState creates reactive state using scoped reducers", t => {
   add$.complete();
 });
 
-test("connect maps state to props in RxStateProvider context", t => {
-  const add$ = new Rx.Subject;
+test("connect maps state to props in RxStateProvider context", (t) => {
+  const add$ = new Rx.Subject();
   const counterReducer$ = add$.map(payload => state => state + payload);
   const rootReducer$ = counterReducer$.map(counter => ["counter", counter]);
   const state$ = createState(rootReducer$, Rx.Observable.of({ counter: 10 }));
@@ -60,16 +60,16 @@ test("connect maps state to props in RxStateProvider context", t => {
 
   const ConnectedCounter = connect(state => ({
     counter: state.counter,
-    add: () => add$.next(1),  
+    add: () => add$.next(1),
   }))(Counter);
 
   const tree = mount(
     <RxStateProvider state$={state$}>
       <ConnectedCounter />
-    </RxStateProvider> 
+    </RxStateProvider>
   );
 
   t.is(tree.find("h1").text(), "10");
-  tree.find("button").simulate("click")
+  tree.find("button").simulate("click");
   t.is(tree.find("h1").text(), "11");
 });

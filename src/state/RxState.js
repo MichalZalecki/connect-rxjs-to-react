@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from "react";
 import Rx from "rxjs";
 
 export function createAction() {
-  return new Rx.Subject;
+  return new Rx.Subject();
 }
 
 export function createActions(actionNames) {
@@ -39,7 +39,7 @@ export function connect(selector = state => state) {
         );
       }
     };
-  }
+  };
 }
 
 export class RxStateProvider extends Component {
