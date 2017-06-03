@@ -46,7 +46,7 @@ export function connect(selector = state => state, actionSubjects) {
   };
 }
 
-export class RxStateProvider extends Component {
+export class Provider extends Component {
   static propTypes = {
     state$: PropTypes.object.isRequired,
   };

@@ -7,7 +7,7 @@ import {
   createAction,
   createActions,
   createState,
-  RxStateProvider,
+  Provider,
   connect,
 } from "./RxState";
 
@@ -45,7 +45,7 @@ test("createState creates reactive state using scoped reducers", (t) => {
   add$.complete();
 });
 
-test("connect maps state to props in RxStateProvider context", (t) => {
+test("connect maps state to props in Provider context", (t) => {
   const add$ = new Rx.Subject();
   const counterReducer$ = add$.map(payload => state => state + payload);
   const rootReducer$ = counterReducer$.map(counter => ["counter", counter]);
@@ -61,9 +61,9 @@ test("connect maps state to props in RxStateProvider context", (t) => {
   const ConnectedCounter = connect(state => ({ counter: state.counter }), { add: add$ })(Counter);
 
   const tree = mount(
-    <RxStateProvider state$={state$}>
+    <Provider state$={state$}>
       <ConnectedCounter />
-    </RxStateProvider>
+    </Provider>
   );
 
   t.is(tree.find("h1").text(), "10");
