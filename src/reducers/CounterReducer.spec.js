@@ -8,8 +8,8 @@ test("handles increment, decrement and reset actions", (t) => {
     t.is(pipe(...fns)(), 9);
   });
 
-  counterActions.increment$.next(1);
-  counterActions.reset$.next();
-  counterActions.increment$.next(10);
-  counterActions.decrement$.next(1);
+  counterActions.increment.next(1);
+  counterActions.reset.next();
+  counterActions.increment.next(10);
+  counterActions.decrement.next(1);
 });

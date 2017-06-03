@@ -54,14 +54,11 @@ test("connect maps state to props in RxStateProvider context", (t) => {
   const Counter = ({ counter, add }) => (
     <div>
       <h1>{counter}</h1>
-      <button onClick={add}>add</button>
+      <button onClick={() => add(1)}>add</button>
     </div>
   );
 
-  const ConnectedCounter = connect(state => ({
-    counter: state.counter,
-    add: () => add$.next(1),
-  }))(Counter);
+  const ConnectedCounter = connect(state => ({ counter: state.counter }), { add: add$ })(Counter);
 
   const tree = mount(
     <RxStateProvider state$={state$}>

@@ -19,7 +19,10 @@ export function createState(reducer$, initialState$ = Rx.Observable.of({})) {
     .refCount();
 }
 
-export function connect(selector = state => state) {
+export function connect(selector = state => state, actionSubjects) {
+  const actions = Object.keys(actionSubjects)
+    .reduce((akk, key) => ({ ...akk, [key]: value => actionSubjects[key].next(value) }), {});
+
   return function wrapWithConnect(WrappedComponent) {
     return class Connect extends Component {
       static contextTypes = {
@@ -36,7 +39,7 @@ export function connect(selector = state => state) {
 
       render() {
         return (
-          <WrappedComponent {...this.state} {...this.props} />
+          <WrappedComponent {...this.state} {...this.props} {...actions} />
         );
       }
     };
